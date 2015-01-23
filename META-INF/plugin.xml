@@ -1,0 +1,69 @@
+<idea-plugin version="2">
+  <id>org.freedomscripts.macroses</id>
+  <name>Fream macroses</name>
+  <version>1.3</version>
+  <vendor email="zaval.list@gmail.com" url="http://freedomscripts.org">Freedomscripts</vendor>
+
+  <description><![CDATA[
+Some useful macroses for Fream framework
+<ul>
+    <li>http - self.http.get/post</li>
+    <li>pd - make dict from urlencoded request</li>
+    <li>pdf - make dict from urlencoded request with Content-Type multipart/form-data</li>
+    <li>l - self.log</li>
+    <li>parse - hlp.parse</li>
+    <li>slp - self.hlp.slp</li>
+    <li>data - self.data[]</li>
+    <li>cnf - self.cnf.get</li>
+    <li>cnt - self.hlp.cnt</li>
+    <li>f - .format()</li>
+    <li>ac - anticaptcha macro</li>
+    <li>def - def function_name(self) with documented comment</li>
+    <li>b - &lt;b&gt;{}&lt;/b&gt;</li>
+</ul>
+    ]]></description>
+
+  <change-notes><![CDATA[
+    <b>1.3</b><br>
+    <b>+</b> l - make self.log of variable without quotes
+    <b>1.2</b><br>
+    <b>+</b> pdf - make dict from urlencoded request with Content-Type multipart/form-data<br>
+    <b>*</b> parse/parse_all - cursor to begin of regexp<br>
+    <b>*</b> http - if string starts with http - string in quotes else string like a variable<br>
+    <b>*</b> cnf - add getint, getnum, getbool<br>
+    ]]>
+  </change-notes>
+
+  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+  <idea-version since-build="131"/>
+
+  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+    <!--<depends>com.intellij.modules.lang</depends>-->
+    <depends>com.intellij.modules.python</depends>
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <application-components>
+    <!-- Add your application components here -->
+  </application-components>
+
+  <project-components>
+    <!-- Add your project components here -->
+  </project-components>
+
+  <actions>
+    <!-- Add your actions here -->
+      <action id="fream_macros" class="org.freedomscripts.macroses.FreamMacros" text="Fream macroses"
+              description="Macroses for fream framework">
+          <add-to-group group-id="EditMenu" anchor="last"/>
+          <keyboard-shortcut keymap="$default" first-keystroke="ctrl 1"/>
+      </action>
+  </actions>
+
+</idea-plugin>
