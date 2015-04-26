@@ -195,8 +195,8 @@ public class FreamMacros extends EditorAction {
 
             }
 
-            else if (macrosString.matches("^\\s*cnf\\s(\\S+)\\s+(?:int|bool|num)")){
-                Pattern pattern = Pattern.compile("^(\\s*)cnf\\s(\\S+)\\s+(int|bool|num)");
+            else if (macrosString.matches("^\\s*cnf\\s(\\S+)\\s+(?:int|bool|num|list)")){
+                Pattern pattern = Pattern.compile("^(\\s*)cnf\\s(\\S+)\\s+(int|bool|num|list)");
                 Matcher matcher = pattern.matcher(macrosString);
 
                 if (matcher.matches()){
@@ -208,6 +208,10 @@ public class FreamMacros extends EditorAction {
 
                     if (matcher.group(3).equals("bool"))
                         newStr = matcher.group(1) + "self.cnf.getbool('" + matcher.group(2) + "')";
+
+                    if (matcher.group(3).equals("list"))
+                        newStr = matcher.group(1) + "self.cnf.getlist('" + matcher.group(2) + "')";
+
                 }
 
             }
@@ -237,8 +241,9 @@ public class FreamMacros extends EditorAction {
             {
                 Pattern pattern = Pattern.compile("^(\\s*)ac$");
                 Matcher matcher = pattern.matcher(macrosString);
-                matcher.matches();
-                newStr = matcher.group(1) + "actext = self.ac.captcha(captcha_url)\n" + matcher.group(1) + "if self.ac.error:\n" + matcher.group(1) + "\tself.log('ошибка разгадки: {}'.format(self.ac.last_error), '!')\n" + matcher.group(1) + "\treturn False\n" + matcher.group(1) + "else:\n" + matcher.group(1) + "\tself.log('разгадали: ' + actext, '+') # self.ac.recaptcha_challenge # self.ac.bad()";
+                if (matcher.matches()) {
+                    newStr = matcher.group(1) + "actext = self.ac.captcha(captcha_url)\n" + matcher.group(1) + "if self.ac.error:\n" + matcher.group(1) + "\tself.log('ошибка разгадки: {}'.format(self.ac.last_error), '!')\n" + matcher.group(1) + "\treturn False\n" + matcher.group(1) + "else:\n" + matcher.group(1) + "\tself.log('разгадали: ' + actext, '+') # self.ac.recaptcha_challenge # self.ac.bad()";
+                }
             }
 
             else if (macrosString.matches("^\\s*slp\\s+\\S+$"))
@@ -288,7 +293,38 @@ public class FreamMacros extends EditorAction {
                 cursorFixer  = -5;
             }
 
+            else if (macrosString.matches("^\\s*rand\\s+\\S+$"))
+            {
+                Pattern pattern = Pattern.compile("^(\\s*)rand\\s+(\\S+)$");
+                Matcher matcher = pattern.matcher(macrosString);
+                if (matcher.matches())
+                {
+                    newStr = matcher.group(1) + matcher.group(2) + " = hlp.rand(" + matcher.group(2) + ")";
+                }
+            }
 
+            else if (macrosString.matches("^\\s*randomize\\s+\\S+$"))
+            {
+                Pattern pattern = Pattern.compile("^(\\s*)randomize\\s+(\\S+)$");
+                Matcher matcher = pattern.matcher(macrosString);
+                if (matcher.matches())
+                {
+                    newStr = matcher.group(1) + matcher.group(2) + " = hlp.randomize(" + matcher.group(2) + ")";
+                }
+            }
+
+            else if (macrosString.matches("^ap$"))
+            {
+                newStr = "self.parent.active_project";
+            }
+
+            else if (macrosString.matches("^ap\\+$"))
+            {
+                newStr = "'projects/{}/'.format(self.parent.active_project)";
+
+                int index = newStr.indexOf("'.format");
+                cursorFixer = index - newStr.length();
+            }
 
             if (!dontReplaceAll)
                 document.replaceString(charsRange.getStartOffset(), charsRange.getEndOffset(), newStr);

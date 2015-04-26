@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>org.freedomscripts.macroses</id>
   <name>Fream macroses</name>
-  <version>1.3</version>
+  <version>1.4</version>
   <vendor email="zaval.list@gmail.com" url="http://freedomscripts.org">Freedomscripts</vendor>
 
   <description><![CDATA[
@@ -14,16 +14,26 @@ Some useful macroses for Fream framework
     <li>parse - hlp.parse</li>
     <li>slp - self.hlp.slp</li>
     <li>data - self.data[]</li>
-    <li>cnf - self.cnf.get</li>
+    <li>cnf - self.cnf.get int/num/bool/list</li>
     <li>cnt - self.hlp.cnt</li>
     <li>f - .format()</li>
     <li>ac - anticaptcha macro</li>
     <li>def - def function_name(self) with documented comment</li>
     <li>b - &lt;b&gt;{}&lt;/b&gt;</li>
+    <li>rand var - make var = hlp.rand(var) </li>
+    <li>randomize var - make var = hlp.randomize(var) </li>
+    <li>ap - make self.parent.active_project </li>
+    <li>ap+ - make 'projects/{}/'.format(self.parent.active_project) and set cursor to end of formatted string </li>
 </ul>
     ]]></description>
 
   <change-notes><![CDATA[
+    <b>1.4</b><br>
+    <b>+</b> cnf list - make self.cnf.getlist <br>
+    <b>+</b> rand var - make var = hlp.rand(var) <br>
+    <b>+</b> randomize var - make var = hlp.randomize(var) <br>
+    <b>+</b> ap - make self.parent.active_project <br>
+    <b>+</b> ap+ - make 'projects/{}/'.format(self.parent.active_project) and set cursor to end of formatted string <br>
     <b>1.3</b><br>
     <b>+</b> l - make self.log of variable without quotes
     <b>1.2</b><br>
